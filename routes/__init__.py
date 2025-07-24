@@ -5,6 +5,6 @@ def create_app():
 
     @app.route("/")
     def home():
-        return "Hola desde Render 🎉"
+        return "Hola desde Flask en Render"
 
     return app
