@@ -1,42 +1,13 @@
-# File: render.yaml
 services:
   - type: web
-    name: afiliado_online
+    name: afiliados-app
     env: python
-    
-    # Render will usually auto-detect and run 'pip install -r requirements.txt' for Python.
-    # If you have custom build steps beyond that, define them here.
-    # buildCommand: "pip install -r requirements.txt" 
-    
-    # This command starts your Gunicorn server, binding it to the host and port Render provides.
-    startCommand: gunicorn --bind 0.0.0.0:$PORT app:create_app()
-    
-    plan: free # Specifies the free plan for your web service
-    
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT app:create_app()"
     envVars:
-      # Automatically injects the connection string from a Render-managed PostgreSQL database.
-      # Ensure you create a PostgreSQL database named 'afiliados_db' on Render.
+      - key: SECRET_KEY
+        value: clave123segura
       - key: DATABASE_URL
         fromDatabase:
-          name: afiliados_db
+          name: afiliados-db
           property: connectionString
-      
-      # Crucial for Flask security (sessions, CSRF protection).
-      # Render will generate a secure value for you. Do NOT hardcode this.
-      - key: SECRET_KEY
-        sync: false         # Marks this variable as sensitive, not to be synced or displayed
-        generateValue: true # Instructs Render to auto-generate a strong random value
-      
-      # Sets Flask to run in production mode for optimal performance and security.
-      - key: FLASK_ENV
-        value: production
-    
-    # This command runs your database migrations BEFORE the new application version starts.
-    # It ensures your database schema is up-to-date.
-    preDeployCommand: flask db upgrade 
-
-# You can define other services here if your application has multiple components,
-# e.g., a PostgreSQL database.
-# databases:
-#   - name: afiliados_db
-#     plan: free # Or 'standard' etc.
