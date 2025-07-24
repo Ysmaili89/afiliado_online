@@ -233,6 +233,7 @@ def set_admin_password(app, new_password):
 
 # -------------------- EJECUCIÓN PRINCIPAL --------------------
 if __name__ == "__main__":
-    app = create_app() # Corrected: 'aplicación' to 'app'
+    app = create_app()
     create_initial_data(app)
-    app.run(debug=True) # Corrected: 'Verdadero' to 'True'
+    app.run(debug=True)
+
