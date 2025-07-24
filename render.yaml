@@ -1,7 +1,12 @@
+# render.yaml
 services:
   - type: web
-    name: afiliado_online
+    name: tu-app
     env: python
-    buildCommand: ""
-    startCommand: gunicorn app:create_app()
-    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT 'app:create_app()'"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: afiliados_db
+          property: connectionString
