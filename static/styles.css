@@ -1,5 +1,14 @@
+/* This line was problematic and has been removed or commented out.
+   It should not be at the very beginning of the file outside of a CSS rule. */
+/* color: #ffffff !important; */
+
+/* Redundant !important removed from root color definitions as they are already variables */
+HTML {
+  font-size: 16px; /* Ensures 1rem is 16px */
+}
+
 :root {
-  /* Colores principales - Combinación de azul profundo con acentos vibrantes */
+  /* Main Colors - Deep blue combined with vibrant accents */
   --color-primario: hsl(222, 28%, 15%);
   --color-primary-hover: hsl(222, 32%, 10%);
   --color-accent: hsl(36, 100%, 50%);
