@@ -50,87 +50,85 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3"> {# Added py-3 for more padding #}
-        <div class="container-fluid px-4"> {# Added px-4 for horizontal padding #}
-            <a class="navbar-brand fw-bold fs-4" href="{{ url_for('publico.index') }}">Afiliados Online</a> {# Increased font size #}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'publico.index' %}active{% endif %}" 
-                           aria-current="{% if request.endpoint == 'publico.index' %}page{% else %}false{% endif %}" 
-                           href="{{ url_for('publico.index') }}">
-                           <i class="fas fa-home me-1"></i> Inicio {# Added home icon #}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'show_categorias' in request.endpoint %}active{% endif %}" 
-                           aria-current="{% if 'show_categorias' in request.endpoint %}page{% else %}false{% endif %}" 
-                           href="{{ url_for('publico.show_categorias') }}">
-                           <i class="fas fa-th-large me-1"></i> Categorías {# Added categories icon #}
-                        </a>
-                    </li>
-                    
-                    {# The "Guías" link has been completely hidden based on your comment. Keep it this way or uncomment if needed. #}
-                    {# {% if request.endpoint != 'publico.index' %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('publico.guias') }}">Guías</a></li>
-                    {% endif %} #}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold fs-4" href="{{ url_for('publico.index') }}">Afiliados Online</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'publico.index' %}active{% endif %}"
+                       aria-current="{% if request.endpoint == 'publico.index' %}page{% else %}false{% endif %}"
+                       href="{{ url_for('publico.index') }}">
+                        <i class="fas fa-home me-1"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'show_categorias' in request.endpoint %}active{% endif %}"
+                       aria-current="{% if 'show_categorias' in request.endpoint %}page{% else %}false{% endif %}"
+                       href="{{ url_for('publico.show_categorias') }}">
+                        <i class="fas fa-th-large me-1"></i> Categorías
+                    </a>
+                </li>
+                {# El enlace "Guías" se ha ocultado por completo en base a tu comentario. Manténgalo así o descomente si es necesario. #}
+                {#
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('public.guias') }}">Guías</a></li>
+                #}
 
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'publico.acerca_de' %}active{% endif %}" 
-                           aria-current="{% if request.endpoint == 'publico.acerca_de' %}page{% else %}false{% endif %}" 
-                           href="{{ url_for('publico.acerca_de') }}">
-                           <i class="fas fa-info-circle me-1"></i> Nosotros {# Added info icon #}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'publico.contacto' %}active{% endif %}" 
-                           aria-current="{% if request.endpoint == 'publico.contacto' %}page{% else %}false{% endif %}" 
-                           href="{{ url_for('publico.contacto') }}">
-                           <i class="fas fa-envelope me-1"></i> Contacto {# Added envelope icon #}
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'publico.acerca_de' %}active{% endif %}"
+                       aria-current="{% if request.endpoint == 'publico.acerca_de' %}page{% else %}false{% endif %}"
+                       href="{{ url_for('publico.acerca_de') }}">
+                        <i class="fas fa-info-circle me-1"></i> Nosotros
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'publico.contacto' %}active{% endif %}"
+                       aria-current="{% if request.endpoint == 'publico.contacto' %}page{% else %}false{% endif %}"
+                       href="{{ url_for('publico.contacto') }}">
+                        <i class="fas fa-envelope me-1"></i> Contacto
+                    </a>
+                </li>
 
-                    {# Conditional navigation for authenticated users and admins #}
-                    {% if current_user.is_authenticated %}
-                        {% if current_user.is_admin %}
-                            <li class="nav-item">
-                                <a class="nav-link text-warning fw-bold" href="{{ url_for('admin.admin_dashboard') }}">
-                                    <i class="fas fa-user-shield me-1"></i> Panel  {# Added admin icon #}
-                                </a>
-                            </li>
-                        {% endif %}
+                {# Navegación condicional para usuarios y administradores autenticados #}
+                {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin %}
                         <li class="nav-item">
-                            <a class="nav-link text-danger" href="{{ url_for('admin.admin_logout') }}">
-                                <i class="fas fa-sign-out-alt me-1"></i> Cerrar {# Added sign-out icon #}
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('admin.admin_login') }}">
-                                <i class="fas fa-sign-in-alt me-1"></i> Iniciar {# Added sign-in icon #}
+                            <a class="nav-link text-warning fw-bold" href="{{ url_for('admin.admin_dashboard') }}">
+                                <i class="fas fa-user-shield me-1"></i> Panel
                             </a>
                         </li>
                     {% endif %}
-                </ul>
-                <form class="d-flex flex-grow-1 me-3 my-2 my-lg-0" role="search" method="GET" action="{{ url_for('publico.search_results') }}">
-                    <div class="input-group"> {# Wrapped search input and button in input-group for a combined look #}
-                        <input class="form-control" name="q" type="search" placeholder="Buscar productos..." aria-label="Buscar productos" required />
-                        <button class="btn btn-outline-light" type="submit">
-                            <i class="fas fa-search"></i> {# Added search icon #}
-                        </button>
-                    </div>
-                </form>
-                <button id="btn-darkmode" class="btn btn-outline-secondary d-flex align-items-center justify-content-center ms-lg-3" title="Alternar modo oscuro" aria-label="Alternar modo oscuro"> {# ms-lg-3 for spacing on larger screens #}
-                    <i class="fas fa-moon"></i> {# Changed to solid moon for consistency, or keep regular if preferred #}
-                </button>
-                <div id="google_translate_element" class="ms-3 d-flex align-items-center"></div> {# Added d-flex and align-items-center #}
-            </div>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ url_for('admin.admin_logout') }}">
+                            <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.admin_login') }}">
+                            <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex flex-grow-1 me-3 my-2 my-lg-0" role="search" method="GET" action="{{ url_for('publico.search_results') }}">
+                <div class="input-group">
+                    <input class="form-control" name="q" type="search" placeholder="Buscar productos..." aria-label="Buscar productos" required />
+                    <button class="btn btn-outline-light" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            <button id="btn-darkmode" class="btn btn-outline-secondary d-flex align-items-center justify-content-center ms-lg-3" title="Alternar modo oscuro" aria-label="Alternar modo oscuro">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div id="google_translate_element" class="ms-3 d-flex align-items-center"></div>
         </div>
-    </nav>
-
+    </div>
+</nav>
     {# Define a variable to control sidebar visibility. Default is true. #}
     {% set show_sidebar = true %}
     {# Allows child templates to override show_sidebar #}
